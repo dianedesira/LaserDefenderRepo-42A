@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     // boundary coordinates
     float xMin;
     float xMax;
+    float yMin;
+    float yMax;
 
 
     /* In Unity there are two types of methods; Built-in and User Defined
@@ -70,7 +72,7 @@ public class Player : MonoBehaviour
         // the current x position (for the player) is changed with the slight change of deltaX EVERY frame
         var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
         // Mathf.Clamp restricts the new x coorindate to be within the xMin and xMax values.
-        var newYPos = transform.position.y + deltaY;
+        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
 
         // changing the player ships' position
         transform.position = new Vector3(newXPos, newYPos, transform.position.z);
@@ -91,5 +93,7 @@ public class Player : MonoBehaviour
 
         xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
         xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
+        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
+        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
     }
 }
