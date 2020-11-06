@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 10f;
 
+    [SerializeField] GameObject laserPrefab;
+
     // boundary coordinates
     float xMin;
     float xMax;
