@@ -367,6 +367,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5092459474207241504, guid: 578123240d74a0b459a068df42056a5a, type: 3}
+      propertyPath: laserPrefab
+      value: 
+      objectReference: {fileID: 3740703952969248776, guid: fa50b46f8afd3df44ab10500e8b36c1a, type: 3}
     - target: {fileID: 5092459474207241509, guid: 578123240d74a0b459a068df42056a5a, type: 3}
       propertyPath: m_Name
       value: Player

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 10f;
+    [SerializeField] float laserSpeed = 20f;
+    [SerializeField] float laserDelay = 0.3f;
 
     [SerializeField] GameObject laserPrefab;
 
@@ -32,6 +34,8 @@ public class Player : MonoBehaviour
     {
         //print("The Start Method has been called!"); //method call
         SetUpMoveBoundaries();
+
+       // StartCoroutine(PrintAndWait());
     }
 
     // Update is called once per frame
@@ -40,6 +44,7 @@ public class Player : MonoBehaviour
         //print("The Update Method has been called!");
 
         Move();
+        Fire();
     }
 
     // Move is a User-Defined method and it will be used to control the player ship's movements
@@ -98,4 +103,48 @@ public class Player : MonoBehaviour
         yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
     }
+
+    void Fire()
+    {
+        /* GetButtonDown returns true as soon as the user presses down on the key which
+         * is represented by the given button.
+         */
+
+        if (Input.GetButtonDown("Fire1")) // if(Input.GetButtonDown("Fire1") == true)
+        {
+            StartCoroutine(FireContinuously());
+        }
+    }
+
+    IEnumerator PrintAndWait()
+    {
+        print("Message 1 sent!");
+
+        yield return new WaitForSeconds(3f);
+
+        print("Message 2 sent!");
+    }
+
+    IEnumerator FireContinuously()
+    {
+        while (true)
+        {
+            /* Instantiate generates a clone (a copy) of the object which is passed as
+             * the first parameter. We need to indicate where the clone will be placed
+             * in the scene and in this case, the laser should be placed in the ship's
+             * position thus, transform.position.
+             * Quaternion.identity refers to NO Rotation.
+             * 
+             * The Instantiate method also returns a reference to the object clone which has just been
+             * generated.
+             */
+
+            GameObject laserClone = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+
+            laserClone.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+
+            yield return new WaitForSeconds(laserDelay);
+        }
+    }
+
 }
