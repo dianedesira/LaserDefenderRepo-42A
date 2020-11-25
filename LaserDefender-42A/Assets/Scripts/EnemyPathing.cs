@@ -5,10 +5,9 @@ using UnityEngine;
 public class EnemyPathing : MonoBehaviour
 {
     //reference to the current wave asset (type wave config)
-    [SerializeField] WaveConfig waveConfig;
+    WaveConfig waveConfig;
 
-    [SerializeField] List<Transform> wayPoints;
-    [SerializeField] float enemyMoveSpeed = 2f;
+    List<Transform> wayPoints;
 
     int wayPointIndex = 0;
 
@@ -37,7 +36,7 @@ public class EnemyPathing : MonoBehaviour
              * will be frame dependant. Just like we did for the player, we are using Time.deltaTime
              * to make the speed frame independant.
              */
-            var movementThisFrame = enemyMoveSpeed * Time.deltaTime;
+            var movementThisFrame = waveConfig.GetEnemyMoveSpeed() * Time.deltaTime;
             var targetPosition = wayPoints[wayPointIndex].position;
 
             /* MoveTowards is a method found in the Vector2 class and it basically moves an object
@@ -61,5 +60,15 @@ public class EnemyPathing : MonoBehaviour
              */
             Destroy(gameObject);
         }
+    }
+
+    /* This method was created so that the EnemySpawner script can call it and set the current wave for
+     * the enemy clone which has just been generated.
+     * We need to use a parameter since the value of the wave will be different with different method calls
+     * and the value can only be accessed from outside of the script.
+     */
+    public void SetWaveConfig(WaveConfig waveConfigToSet)
+    {
+        waveConfig = waveConfigToSet;
     }
 }
