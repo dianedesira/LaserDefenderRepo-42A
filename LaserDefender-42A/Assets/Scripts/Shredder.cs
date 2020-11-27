@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class Shredder : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /* OnTriggerEnter2D() is a built-in method (so the Unity Compiler will know when this 
      * method needs to be called which is when another collider hits this object's collider).

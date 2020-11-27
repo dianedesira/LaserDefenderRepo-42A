@@ -5,17 +5,20 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] List<WaveConfig> waveConfigs;
+    [SerializeField] bool looping = false;
 
     int startingWave = 0;
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start() //The Start built-in method has been set to become a coroutine.
     {
-        //Since we're in the Start method, we should start with the first wave which is the
-        //wave found in index 0 of the list.
-        WaveConfig currentWave = waveConfigs[startingWave];
-
-        StartCoroutine(SpawnAllEnemiesInWave(currentWave));
+        do
+        {
+            /*  via yield return StartCoroutine we ensure that the repetition of creation of waves is done
+             *  after the previous group of waves are generated, thus, ensuring a synchronous execution.
+             */
+            yield return StartCoroutine(SpawnAllWaves());
+        } while (looping);
     }
 
     // Update is called once per frame
@@ -60,6 +63,21 @@ public class EnemySpawner : MonoBehaviour
             newEnemyClone.GetComponent<EnemyPathing>().SetWaveConfig(waveConfig);
 
             yield return new WaitForSeconds(waveConfig.GetTimeBetweenSpawns());
+        }
+    }
+
+    IEnumerator SpawnAllWaves()
+    {
+        //using a for loop to go through all of the waves found in our list
+        for (int waveIndex = startingWave; waveIndex < waveConfigs.Count; waveIndex++)
+        {
+            WaveConfig currentWave = waveConfigs[waveIndex];
+
+            /* Calling a StartCoroutine from yield return would ensure synchronous running of the execution
+             * of multiple calls for the SpawnAllEnemiesInWave. Without this synchronous concept, all
+             * of the groups would be generated together.
+             */
+            yield return StartCoroutine(SpawnAllEnemiesInWave(currentWave));
         }
     }
 }
