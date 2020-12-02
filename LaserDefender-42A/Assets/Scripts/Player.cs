@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] float health = 100;
     [SerializeField] float movementSpeed = 10f;
     [SerializeField] float laserSpeed = 20f;
     [SerializeField] float laserDelay = 0.3f;
@@ -151,6 +152,23 @@ public class Player : MonoBehaviour
             laserClone.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
 
             yield return new WaitForSeconds(laserDelay);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        DamageDealer damageDealer = collision.gameObject.GetComponent<DamageDealer>();
+        ProcessHit(damageDealer);
+    }
+
+    private void ProcessHit(DamageDealer damageDealer)
+    {
+        health -= damageDealer.GetDamage();
+        //health = health - damageDealer.GetDamage();
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 
