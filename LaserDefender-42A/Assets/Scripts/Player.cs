@@ -158,6 +158,19 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         DamageDealer damageDealer = collision.gameObject.GetComponent<DamageDealer>();
+
+        /* To avoid from having runtime errors due to trying to use elements from the damage
+         * dealer if the other object does not have a DamageDealer component, we are checking
+         * to see whether the damageDealer variable is null/empty. If it is, the process will
+         * return and the method execution will terminate.
+         * The ! (Not) operator is used in boolean expressions to check for a false value, if the
+         * value is not a boolean type, it automatically checks if the value is null/empty.
+         * A return always indicates the end of the method execution. If there is any code 
+         * following the return, this code will not be executed.
+         */
+        if (!damageDealer)
+            return;
+
         ProcessHit(damageDealer);
     }
 
@@ -165,7 +178,7 @@ public class Player : MonoBehaviour
     {
         health -= damageDealer.GetDamage();
         //health = health - damageDealer.GetDamage();
-
+        damageDealer.Hit();
         if (health <= 0)
         {
             Destroy(gameObject);

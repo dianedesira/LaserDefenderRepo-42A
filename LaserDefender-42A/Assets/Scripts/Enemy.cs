@@ -32,6 +32,10 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         DamageDealer damageDealer = collision.gameObject.GetComponent<DamageDealer>();
+
+        if (!damageDealer)
+            return;
+
         ProcessHit(damageDealer);
     }
 
@@ -39,7 +43,7 @@ public class Enemy : MonoBehaviour
     {
         health -= damageDealer.GetDamage();
         //health = health - damageDealer.GetDamage();
-
+        damageDealer.Hit(); // destroying the laser which has just hit this object
         if (health <= 0)
         {
             Destroy(gameObject);
