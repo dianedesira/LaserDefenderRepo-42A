@@ -12,6 +12,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject enemyLaserPrefab;
     [SerializeField] float laserSpeed = 20f;
 
+    [SerializeField] GameObject deathVFX;
+
+    [SerializeField] AudioClip enemyDeathSound;
+    [SerializeField] [Range(0, 1)] float enemyDeathSoundVolume = 0.75f; // used to create a GUI tool to drag the
+    //required value
+    [SerializeField] AudioClip shootSound;
+    [SerializeField] [Range(0, 1)] float shootSoundVolume = 0.25f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,8 +54,21 @@ public class Enemy : MonoBehaviour
         damageDealer.Hit(); // destroying the laser which has just hit this object
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        AudioSource.PlayClipAtPoint(enemyDeathSound, Camera.main.transform.position, enemyDeathSoundVolume);
+
+        //creating a copy of the blast effect
+        GameObject explosion = Instantiate(deathVFX, transform.position, Quaternion.identity);
+
+        //destroying the blast after 1 second
+        Destroy(explosion, 1f);
+
+        Destroy(gameObject);
     }
 
     void CountDownAndShoot()
@@ -75,5 +96,7 @@ public class Enemy : MonoBehaviour
 
         //since the enemylaser needs to be shot downwards a negative velocity needs to be applied.
         enemyLaserClone.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -laserSpeed);
+
+        AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, shootSoundVolume);
     }
 }
