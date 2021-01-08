@@ -101,6 +101,10 @@ MonoBehaviour:
   laserSpeed: 20
   laserDelay: 0.3
   laserPrefab: {fileID: 3740703952969248776, guid: fa50b46f8afd3df44ab10500e8b36c1a, type: 3}
+  playerDeathSound: {fileID: 8300000, guid: 360707b3182e704489096c0ed0ee6c84, type: 3}
+  playerDeathSoundVolume: 0.75
+  shootSound: {fileID: 8300000, guid: c6abfa6a58c327247b63c7900e5c0a73, type: 3}
+  shootSoundVolume: 0.1
 --- !u!60 &5105569164381448109
 PolygonCollider2D:
   m_ObjectHideFlags: 0
