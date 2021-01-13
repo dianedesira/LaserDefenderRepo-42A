@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Level : MonoBehaviour
 {
+    [SerializeField] float delayInSeconds = 2f; // delay before loading the Game over scene
+
     public void LoadStartMenu()
     {
         /* The LoadScene method is found in the SceneManager class which is found in the SceneManagement library.
@@ -23,12 +25,23 @@ public class Level : MonoBehaviour
 
     public void LoadGameOver()
     {
-        SceneManager.LoadScene("GameOver");
+        StartCoroutine(WaitAndLoad());
     }
 
     public void QuitGame()
     {
         print("Game quitting");
         Application.Quit();
+    }
+
+    IEnumerator WaitAndLoad()
+    {
+        /* This coroutine will be used so that when the Game Over scene needs to be loaded, there will be a delay
+         * and once the delay is up the scene can load.
+         */
+
+        yield return new WaitForSeconds(delayInSeconds);
+
+        SceneManager.LoadScene("GameOver");
     }
 }

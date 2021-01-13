@@ -196,6 +196,13 @@ public class Player : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(playerDeathSound, Camera.main.transform.position, playerDeathSoundVolume);
 
+        /* FindObjectOfType<>() is a method which finds an object, in the current hierarchy, by checking which
+         * object contains the script indicated in between <>. In this case, the compiler will look for the object
+         * which contains the Level script.
+         * Then we can call properties and methods which are in the script (and are declared as public, of course)
+         */
+        FindObjectOfType<Level>().LoadGameOver();
+
         Destroy(gameObject);
     }
 }

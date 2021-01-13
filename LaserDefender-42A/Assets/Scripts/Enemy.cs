@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
-{
+{  
+   [Header("Enemy Stats")]
     [SerializeField] float health = 100;
+    [SerializeField] int scoreValue = 50;
+
+   [Header("Shooting")]
     [SerializeField] float shotCounter; // a counter to set a time between shooting one laser and another
     [SerializeField] float minTimeBetweenShots = 0.2f; // shortest time between laser shots
     [SerializeField] float maxTimeBetweenShots = 3f; // longest time between laser shots
-
     [SerializeField] GameObject enemyLaserPrefab;
     [SerializeField] float laserSpeed = 20f;
 
+   [Header("Effects")]
     [SerializeField] GameObject deathVFX;
-
     [SerializeField] AudioClip enemyDeathSound;
     [SerializeField] [Range(0, 1)] float enemyDeathSoundVolume = 0.75f; // used to create a GUI tool to drag the
     //required value
@@ -60,6 +63,8 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        FindObjectOfType<GameSession>().AddToScore(scoreValue);
+
         AudioSource.PlayClipAtPoint(enemyDeathSound, Camera.main.transform.position, enemyDeathSoundVolume);
 
         //creating a copy of the blast effect

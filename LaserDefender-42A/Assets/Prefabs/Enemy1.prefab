@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 649050142085175321}
   - component: {fileID: 1346681930237186076}
   - component: {fileID: -6994621524431244231}
+  - component: {fileID: 7547515245823100181}
+  - component: {fileID: -6034070967952386316}
   m_Layer: 9
   m_Name: Enemy1
   m_TagString: Untagged
@@ -130,7 +132,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -167,3 +169,37 @@ PolygonCollider2D:
       - {x: -0.255, y: -0.41}
       - {x: -0.13499999, y: -0.25}
       - {x: -0.125, y: -0.29999998}
+--- !u!50 &7547515245823100181
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806026585240100982}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &-6034070967952386316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806026585240100982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35638739b9022fa43be53159eecf0f7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 100
