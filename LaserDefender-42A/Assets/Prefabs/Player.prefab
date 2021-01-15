@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef74f9e3a27f6b47be47493eaad6034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 500
   movementSpeed: 10
   laserSpeed: 20
   laserDelay: 0.3

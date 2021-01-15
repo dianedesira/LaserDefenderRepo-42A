@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float health = 100;
+    [SerializeField] int health = 500;
     [SerializeField] float movementSpeed = 10f;
     [SerializeField] float laserSpeed = 20f;
     [SerializeField] float laserDelay = 0.3f;
@@ -204,5 +204,10 @@ public class Player : MonoBehaviour
         FindObjectOfType<Level>().LoadGameOver();
 
         Destroy(gameObject);
+    }
+
+    public int GetHealth()
+    {
+        return health;
     }
 }
